@@ -172,6 +172,13 @@ https://github.com/cnlohr/buildroot/pull/1/commits/bc890f74354e7e2f2b1cf7715f6ef
 Use this:
 https://github.com/cnlohr/buildroot/commit/e97714621bfae535d947817e98956b112eb80a75
 
+## original from https://github.com/cnlohr/mini-rv32ima  
+* https://github.com/cnlohr/mini-rv32ima  
+* https://github.com/tvlad1234/linux-ch32v003  
+* work_m68k  
+* linux-ch32v003_v4_good_no_systick.7z  
+* mini-rv32ima-master_mingw_cd_mini-rv32ima_make_testdlimage.7z  
+
 ## How to run  
 ```
 (under MINGW!!!)  
@@ -242,3 +249,6 @@ cd mini-rv32ima; make testdlimage即可（其实就是单文件编译，顺便�
 也就是可以模拟器运行，所以我可能会尝试用PC方式编译运行，
 或者想办法模拟这个linux-ch32v003的效果在PC上测试
 ```
+
+## TODO  
+* How to build DownloadedImage and some linux device tree data file embeded in the sources  

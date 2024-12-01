@@ -1,0 +1,23 @@
+(IMP)
+linux-ch32v003_v4_good_no_systick.7z
+tvlad1234/linux-ch32v003研究，我暂时做了一个可以命令行输入的版本，不过不完美（还是没有实现真实的systick），不过即便没有systick可以用步进加1的方法模拟systick（我这里模拟器循环每步加5微秒），这样顺便也解决了大概率会没日志或内核panic的问题（原因不明，我加了模拟systick就没事了）。这个效果非常卡，输入一个字符要等几秒，执行ls也是会缓慢输出，有点类似uclinux那种每行输出卡顿一下的感觉，但卡顿得更厉害了
+tvlad1234/linux-ch32v003研究，这个开源项目代码有点玄乎，我怀疑不同gcc可能也会影响实际的运行效果。我只有备份某个修改版本且尽在特定情况下才能跑出波浪线井号的正确效果（不确定条件；用MounRiver Studio编译，但系统嘀嗒为0所以无法输入），假如我进行代码微调，或者未知条件下，就会出现各种失败情况，例如没有日志，或者内核panic，但我找不到具体的规律在哪
+tvlad1234/linux-ch32v003研究，现在可以勉强跑起来，从psram加载完内核镜像到第一行linux日志输出需要15秒，从psram加载完内核到出现命令行提示符（波浪线井号）需要5分钟，非常慢。之前的spi共用问题似乎可以通过面包板最邻近插孔解决（不要隔着空位接线）防止产生电阻干扰读写。暂时还没完全跑通，还差系统时钟的移植代码有问题，所以目前无法测试命令行输入（日志前面的秒数全是0是错的）
+（TODO：接线方法未记录）
+CH32V003F4P6-R0-1v1 green board：
+右上GND<->WCHLinkE-GND
+右上第二列VCC<->WCHLinkE-3V3
+PD5(TX)<->WCHLinkE-RX
+PD6(RX)<->WCHLinkE-TX
+PD1(SWIO)<->WCHLinkE-SWDIO/TMS
+SD板子（Green board TF+SD==SD/TF Board V1.6.2 use TF）：
+PC0<->SD-/CS
+面包板（SOP8 ESP-PSRAM64H）：
+左下GND<->SD-GND<->ESP-PSRAM-4
+右上第一列VCC（避免电阻）<->SD-3.3V<->ESP-PSRAM-8
+PC7<->SD-MISO<->ESP-PSRAM-2
+PC6<->SD-MOSI<->ESP-PSRAM-5
+PC5<->SD-CLK<->ESP-PSRAM-6
+PD3<->ESP-PSRAM-1-/CS
+注意插面包板（例如三脚连在一起）不要隔孔位，尽量贴近孔位插线，以防止读写psram和tf卡数据有误
+
